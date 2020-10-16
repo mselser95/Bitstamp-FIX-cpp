@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/test.dir/connector/Connector.cpp.o CMakeFiles/test.dir/brain.cpp.o CMakeFiles/test.dir/connector/Bitstamp.cpp.o  -o test  -Wl,-rpath,/usr/local/lib /usr/local/lib/libquickfix.so 

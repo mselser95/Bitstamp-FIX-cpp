@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="test"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/matias/CLionProjects/Brain"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/matias/CLionProjects/Brain"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/matias/CLionProjects/Brain"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="test">
+				<Option output="/home/matias/CLionProjects/Brain/test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/matias/CLionProjects/Brain"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/matias/CLionProjects/Brain/."/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 test"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="test/fast">
+				<Option output="/home/matias/CLionProjects/Brain/test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/matias/CLionProjects/Brain"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/matias/CLionProjects/Brain/."/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 test/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/matias/CLionProjects/Brain/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/matias/CLionProjects/Brain/Book.h">
+			<Option target="test"/>
+		</Unit>
+		<Unit filename="/home/matias/CLionProjects/Brain/brain.cpp">
+			<Option target="test"/>
+		</Unit>
+		<Unit filename="/home/matias/CLionProjects/Brain/config.h">
+			<Option target="test"/>
+		</Unit>
+		<Unit filename="/home/matias/CLionProjects/Brain/connector/Bitstamp.cpp">
+			<Option target="test"/>
+		</Unit>
+		<Unit filename="/home/matias/CLionProjects/Brain/connector/Bitstamp.h">
+			<Option target="test"/>
+		</Unit>
+		<Unit filename="/home/matias/CLionProjects/Brain/connector/Connector.cpp">
+			<Option target="test"/>
+		</Unit>
+		<Unit filename="/home/matias/CLionProjects/Brain/connector/Connector.h">
+			<Option target="test"/>
+		</Unit>
+		<Unit filename="/home/matias/CLionProjects/Brain/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
