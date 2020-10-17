@@ -106,8 +106,6 @@ void Connector::onMessage
             ask_size.push_back(FIX::DoubleConvertor::convert(group.getField(FIX::FIELD::MDEntrySize)));
         }
     }
-//    std::cout << "MarketDataSnapshotFullRefresh -> Symbol - " << symbol
-//         << " Bid - " << bid_price[0] << " Ask - " << ask_price[0] << std::endl;
 
     this->book->ask_price.clear();
     this->book->bid_price.clear();
@@ -186,8 +184,42 @@ void Connector::MarketDataRequest(std::string ticker,std::string ID, char subscr
     message.getHeader().setField(FIX::SenderCompID(std::string("lpwp6653")));
     message.getHeader().setField(FIX::TargetCompID(std::string("BITSTAMP")));
 
-//    std::cout << message.toXML() << std::endl;
-//    std::cout << message.toString() << std::endl;
-
     FIX::Session::sendToTarget(message);
+    FIX::Session::sendToTarget(message, this->sessionID);
+}
+
+void Connector::SendOrder(std::string ticker,std::string side,std::string type,double px,double qty){
+    char s = 0, t = 0;
+    if (!side.compare("BUY")){
+        s = FIX::Side_BUY;
+    }
+    else if (!side.compare("SELL")){
+        s = FIX::Side_SELL;
+    }
+    if (!type.compare("MARKET")){
+        t = FIX::OrdType_MARKET;
+    }
+    else if (!type.compare("LIMIT")){
+        t = FIX::OrdType_LIMIT;
+    }
+    FIX44::NewOrderSingle request;
+    request.setField(FIX::ClOrdID(NextRequestID()));
+    request.setField(FIX::Symbol(ticker));
+    request.setField(FIX::Side(s));
+    request.setField(FIX::TransactTime());
+    request.setField(FIX::Price(px));
+    //    request.setField(FIX::OrderQty(qty));
+    request.setField(FIX::OrderQty(0));
+    request.setField(FIX::OrdType(t));
+    request.setField(FIX::TimeInForce(FIX::TimeInForce_GOOD_TILL_CANCEL));
+    FIX::Session::sendToTarget(request,this->sessionID);
+}
+
+std::string Connector::NextRequestID(void)
+{
+    if(requestID == 65535)
+        requestID = 1;
+    requestID++;
+    std::string next_ID = FIX::IntConvertor::convert(requestID);
+    return next_ID;
 }

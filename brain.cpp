@@ -17,14 +17,16 @@ int main( int argc, char** argv )
     Bitstamp bitstamp_connector = Bitstamp(book,last_trade);
 
     bitstamp_connector.connect();
-    bitstamp_connector.get_streaming_data("BTC/USD","1");
-    bitstamp_connector.get_streaming_data("ETH/USD","2");
-    bitstamp_connector.get_streaming_data("LTC/USD","3");
 
-    sleep(5);
-    bitstamp_connector.stop_streaming_data("BTC/USD","1");
-    bitstamp_connector.stop_streaming_data("ETH/USD","2");
-    bitstamp_connector.stop_streaming_data("LTC/USD","3");
+//    bitstamp_connector.get_streaming_data("BTC/USD","1");
+//    bitstamp_connector.get_streaming_data("ETH/USD","2");
+//    bitstamp_connector.get_streaming_data("LTC/USD","3");
+//    sleep(5);
+//    bitstamp_connector.stop_streaming_data("BTC/USD","1");
+//    bitstamp_connector.stop_streaming_data("ETH/USD","2");
+//    bitstamp_connector.stop_streaming_data("LTC/USD","3");
+
+    bitstamp_connector.send_market_order("BTC/USD","SELL",0.0001);
 
 
 

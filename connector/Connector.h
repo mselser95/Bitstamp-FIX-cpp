@@ -38,6 +38,9 @@
 #include "quickfix/fix44/MarketDataIncrementalRefresh.h"
 #include "quickfix/fix44/MarketDataRequest.h"
 
+#include "quickfix/fix44/NewOrderSingle.h"
+
+
 #include <queue>
 
 #include "Book.h"
@@ -50,6 +53,10 @@ class Connector :
 {
 public:
     void MarketDataRequest(std::string ticker,std::string ID, char subscription);
+    void SendOrder(std::string ticker,std::string side,std::string type,double px,double qty);
+    unsigned int requestID;
+    FIX::SessionID sessionID;
+
     void (*bookUpdated)(BOOK*,std::string);
     void (*tradesUpdated)(LT*,std::string);
 
@@ -63,10 +70,11 @@ public:
         this ->tradesUpdated = tradesUpdated;
         this ->book = book;
         this ->last_trade = last_trade;
+        this ->requestID = 1;
     }
 
 private:
-    void onCreate( const FIX::SessionID& ) {}
+    void onCreate( const FIX::SessionID& sessionID) {this ->sessionID = sessionID;}
     void onLogon( const FIX::SessionID& sessionID );
     void onLogout( const FIX::SessionID& sessionID );
     void toAdmin( FIX::Message&, const FIX::SessionID& );
@@ -81,6 +89,8 @@ private:
     void onMessage( const FIX44::OrderCancelReject&, const FIX::SessionID& );
     void onMessage( const FIX44::MarketDataSnapshotFullRefresh&, const FIX::SessionID& );
     void onMessage( const FIX44::MarketDataIncrementalRefresh&, const FIX::SessionID& );
+
+    std::string NextRequestID(void);
 
 };
 

@@ -50,3 +50,10 @@ void Bitstamp::get_streaming_data(std::string ticker,std::string ID){
 void Bitstamp::stop_streaming_data(std::string ticker,std::string ID){
     this -> application->MarketDataRequest(ticker,ID,'2');
 }
+
+void Bitstamp::send_market_order(std::string ticker,std::string side,double qty){
+    this -> application ->SendOrder(ticker,side,"MARKET",0,qty);
+}
+void Bitstamp::send_limit_order(std::string ticker,std::string side,double px,double qty){
+    this -> application ->SendOrder(ticker,side,"LIMIT",px,qty);
+}

@@ -29,7 +29,6 @@ public:
     FIX::Initiator * initiator;
     FIX::SessionSettings settings;
     Connector * application = 0;
-
     char connect(void);
     Bitstamp(BOOK * book,LT * last_trade){
         this -> initiator = 0;
@@ -39,6 +38,9 @@ public:
 
     void get_streaming_data(std::string ticker,std::string ID);
     void stop_streaming_data(std::string ticker,std::string ID);
+    void send_market_order(std::string ticker,std::string side,double qty);
+    void send_limit_order(std::string ticker,std::string side,double px,double qty);
+
 };
 
 
