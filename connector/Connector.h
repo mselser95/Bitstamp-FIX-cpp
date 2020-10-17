@@ -52,8 +52,10 @@ public:
     void MarketDataRequest(std::string ticker,std::string ID, char subscription);
     void (*bookUpdated)(BOOK*,std::string);
     void (*tradesUpdated)(LT*,std::string);
+
     BOOK* book;
     LT* last_trade;
+
     Connector(void (*bookUpdated)(BOOK*,std::string),
               void (*tradesUpdated)(LT*,std::string),
               BOOK * book, LT* last_trade){

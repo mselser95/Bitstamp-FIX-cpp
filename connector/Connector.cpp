@@ -29,7 +29,7 @@ void Connector::fromApp( const FIX::Message& message, const FIX::SessionID& sess
 EXCEPT( FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::UnsupportedMessageType )
 {
     crack( message, sessionID );
-    std::cout << std::endl << "IN: " << message << std::endl;
+//    std::cout << std::endl << "IN: " << message << std::endl;
 }
 void Connector::fromAdmin( const FIX::Message& message, const FIX::SessionID& sessionID )
 EXCEPT( FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::RejectLogon ){
@@ -64,24 +64,35 @@ EXCEPT( FIX::DoNotSend )
 }
 
 void Connector::onMessage
-        ( const FIX44::ExecutionReport&, const FIX::SessionID& ) {}
+        ( const FIX44::ExecutionReport& message, const FIX::SessionID& ) {
+    std::cout << "ExecutionReport -> " << std::endl;
+    std::cout << "  ClOrdID -> " << message.getField(FIX::FIELD::ClOrdID) << std::endl;
+    std::cout << "  Account -> " << message.getField(FIX::FIELD::Account) << std::endl;
+    std::cout << "  OrderID -> " << message.getField(FIX::FIELD::OrderID) << std::endl;
+    std::cout << "  LastQty -> " << message.getField(FIX::FIELD::LastQty) << std::endl;
+    std::cout << "  CumQty -> " << message.getField(FIX::FIELD::CumQty) << std::endl;
+    std::cout << "  ExecType -> " << message.getField(FIX::FIELD::ExecType) << std::endl;
+    std::cout << "  OrdStatus -> " << message.getField(FIX::FIELD::OrdStatus) << std::endl;
+    // ** Note on order status. **
+    // In order to determine the status of an order, and also how much an order is filled, we must
+    // use the OrdStatus and CumQty fields. There are 3 possible final values for OrdStatus: Filled (2),
+    // Rejected (8), and Cancelled (4). When the OrdStatus field is set to one of these values, you know
+    // the execution is completed. At this time the CumQty (14) can be inspected to determine if and how
+    // much of an order was filled.
+}
 void Connector::onMessage
         ( const FIX44::OrderCancelReject&, const FIX::SessionID& ) {}
 void Connector::onMessage
         ( const FIX44::MarketDataSnapshotFullRefresh& mds, const FIX::SessionID& )
 {
-    // Get symbol name of the snapshot; e.g., EUR/USD. Our example only subscribes to EUR/USD so
-    // this is the only possible value
+
     std::string symbol = mds.getField(FIX::FIELD::Symbol);
-    // Declare variables for both the bid and ask prices. We will read the MarketDataSnapshotFullRefresh
-    // message for tthese values
-    // For each MDEntry in the message, inspect the NoMDEntries group for
-    // the presence of either the Bid or Ask (Offer) type
 
     bid_price.clear();
     bid_size.clear();
     ask_size.clear();
     ask_price.clear();
+
     int entry_count = FIX::IntConvertor::convert(mds.getField(FIX::FIELD::NoMDEntries));
     for(int i = 1; i < entry_count; i++){
         FIX44::MarketDataSnapshotFullRefresh::NoMDEntries group;
@@ -95,8 +106,8 @@ void Connector::onMessage
             ask_size.push_back(FIX::DoubleConvertor::convert(group.getField(FIX::FIELD::MDEntrySize)));
         }
     }
-    std::cout << "MarketDataSnapshotFullRefresh -> Symbol - " << symbol
-         << " Bid - " << bid_price[0] << " Ask - " << ask_price[0] << std::endl;
+//    std::cout << "MarketDataSnapshotFullRefresh -> Symbol - " << symbol
+//         << " Bid - " << bid_price[0] << " Ask - " << ask_price[0] << std::endl;
 
     this->book->ask_price.clear();
     this->book->bid_price.clear();
@@ -113,16 +124,33 @@ void Connector::onMessage
 }
 void Connector::onMessage(const FIX44::MarketDataIncrementalRefresh& message, const FIX::SessionID &)
 {
-    std::string symbol = message.getField(FIX::FIELD::Symbol);
-    last_tradee.px  =  FIX::DoubleConvertor::convert(message.getField(FIX::FIELD::MDEntryPx));
-    last_tradee.qty = FIX::DoubleConvertor::convert(message.getField(FIX::FIELD::MDEntrySize));
-    std::cout << "MarketDataIncrementalRefresh -> Symbol - " << symbol
-              << " Px - " << last_tradee.px << " Qty - " << last_tradee.px << std::endl;
+    FIX::NoMDEntries noMDEntries;
+    message.get(noMDEntries);
+    if (noMDEntries.getValue()!=1){
+        std::cout << "NoMDEntries in MarketDataIncrementalRefresh is not 1!" <<std::endl;
+        return;
+    }
+    FIX44::MarketDataIncrementalRefresh::NoMDEntries group;
+    message.getGroup(1, group);
 
+    FIX::MDEntryID entryID; group.get(entryID);
+    FIX::MDUpdateAction action; group.get(action);
+    FIX::Symbol symbol;
+    if(group.isSet(symbol)){
+        group.get(symbol);
+    }
 
-    this->last_trade->px = last_tradee.px;
-    this->last_trade->qty = last_tradee.qty;
-    this->tradesUpdated(this->last_trade, symbol);
+    FIX::MDEntryPx price;
+    if(group.isSet(price)) {
+        group.get(price);
+    }
+    FIX::MDEntrySize qty;
+    if(group.isSet(qty)) {
+        group.get(qty);
+    }
+    last_trade ->px = price.getValue();
+    last_trade ->qty = qty.getValue();
+    this ->tradesUpdated(last_trade,symbol.getString());
 }
 
 void Connector::MarketDataRequest(std::string ticker,std::string ID, char subscription)

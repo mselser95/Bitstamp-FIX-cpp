@@ -54,7 +54,24 @@ EXCEPT( FIX::DoNotSend )
 }
 
 void Connector::onMessage
-        ( const FIX44::ExecutionReport&, const FIX::SessionID& ) {}
+        ( const FIX44::ExecutionReport& message, const FIX::SessionID& ) {
+    {
+        std::cout << "ExecutionReport -> " << std::endl;
+        std::cout << "  ClOrdID -> " << message.getField(FIX::FIELD::ClOrdID) << std::endl;
+        std::cout << "  Account -> " << message.getField(FIX::FIELD::Account) << std::endl;
+        std::cout << "  OrderID -> " << message.getField(FIX::FIELD::OrderID) << std::endl;
+        std::cout << "  LastQty -> " << message.getField(FIX::FIELD::LastQty) << std::endl;
+        std::cout << "  CumQty -> " << message.getField(FIX::FIELD::CumQty) << std::endl;
+        std::cout << "  ExecType -> " << message.getField(FIX::FIELD::ExecType) << std::endl;
+        std::cout << "  OrdStatus -> " << message.getField(FIX::FIELD::OrdStatus) << std::endl;
+        // ** Note on order status. **
+        // In order to determine the status of an order, and also how much an order is filled, we must
+        // use the OrdStatus and CumQty fields. There are 3 possible final values for OrdStatus: Filled (2),
+        // Rejected (8), and Cancelled (4). When the OrdStatus field is set to one of these values, you know
+        // the execution is completed. At this time the CumQty (14) can be inspected to determine if and how
+        // much of an order was filled.
+    }
+}
 void Connector::onMessage
         ( const FIX44::OrderCancelReject&, const FIX::SessionID& ) {}
 void Connector::onMessage

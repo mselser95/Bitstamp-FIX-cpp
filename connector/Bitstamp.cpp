@@ -3,6 +3,7 @@
 //
 
 #include "quickfix/FileStore.h"
+#include "quickfix/FileLog.h"
 #include <quickfix/SSLSocketInitiator.h>
 #include <string>
 #include <iostream>
@@ -14,10 +15,11 @@ using std::vector;
 
 void bookUpdated(BOOK* Book,std::string ticker) {
     std::cout << "TOP OF BOOK FOR " << ticker << ":" << std::endl
-    <<"Ask px: "<< Book->ask_price [0]<< std::endl
-    <<"Bid px: "<< Book->bid_price [0]<< std::endl
-    <<"Ask size: "<< Book->ask_size [0]<< std::endl
-    <<"Bid size: "<< Book->bid_size [0]<< std::endl;
+    <<"Ask px: "<< Book->ask_price [0]<< "\t"
+    <<"Ask size: "<< Book->ask_size [0]<< "\t"
+    <<"Bid px: "<< Book->bid_price [0]<< "\t"
+    <<"Bid size: "<< Book->bid_size [0]<< "\t"
+    << std::endl;
 }
 
 void tradesUpdated(LT* last_trade,std::string ticker) {
@@ -29,9 +31,8 @@ char Bitstamp::connect(void){
     try
     {
         FIX::FileStoreFactory storeFactory(settings);
-//        FIX::ScreenLogFactory logFactory( settings );
-//        initiator = new FIX::SSLSocketInitiator ( application, storeFactory, settings, logFactory );
-        this->initiator = new FIX::SSLSocketInitiator ( *this->application, storeFactory, this->settings);
+        FIX::FileLogFactory logFactory( settings );
+        this->initiator = new FIX::SSLSocketInitiator ( *this->application, storeFactory, this->settings,logFactory);
         this->initiator->start();
         while(!this->initiator->isLoggedOn());
     }
