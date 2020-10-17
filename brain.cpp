@@ -1,12 +1,20 @@
 
 #include "connector/Bitstamp.h"
 #include "Book.h"
-#include <time.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <stdio.h>
 
+void exception_handler(int s){
+    printf("Caught signal %d\n",s);
+    exit(1);
+
+}
 int main( int argc, char** argv )
 {
     BOOK* book = new (BOOK);
-    Bitstamp bitstamp_connector = Bitstamp(book);
+    LT * last_trade = new(LT);
+    Bitstamp bitstamp_connector = Bitstamp(book,last_trade);
 
     bitstamp_connector.connect();
     bitstamp_connector.get_streaming_data("BTC/USD","1");
@@ -20,10 +28,12 @@ int main( int argc, char** argv )
 
 
 
-
-
-    while (1){
-        int a = 1;
-    }
-
+    struct sigaction sigIntHandler;
+    sigIntHandler.sa_handler = exception_handler;
+    sigemptyset(&sigIntHandler.sa_mask);
+    sigIntHandler.sa_flags = 0;
+    sigaction(SIGINT, &sigIntHandler, NULL);
+    pause();
+    return 0;
 }
+

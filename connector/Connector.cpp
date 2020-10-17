@@ -12,6 +12,9 @@ vector<float> ask_price;
 vector<float> bid_size;
 vector<float> ask_size;
 
+
+LT last_tradee;
+
 void Connector::onLogon( const FIX::SessionID& sessionID )
 {
     std::cout << std::endl << "Logon - " << sessionID << std::endl;
@@ -95,11 +98,31 @@ void Connector::onMessage
     std::cout << "MarketDataSnapshotFullRefresh -> Symbol - " << symbol
          << " Bid - " << bid_price[0] << " Ask - " << ask_price[0] << std::endl;
 
-    this->bookUpdated(bid_price,ask_price,bid_size,ask_size,entry_count, this->book,symbol);
+    this->book->ask_price.clear();
+    this->book->bid_price.clear();
+    this->book->ask_size.clear();
+    this->book->bid_size.clear();
+    for(int i = 0; i < entry_count/2; i++){
+        this->book->ask_price.push_back(ask_price[i]);
+        this->book->bid_price.push_back(bid_price[i]);
+        this->book->ask_size.push_back(ask_size[i]);
+        this->book->bid_size.push_back(bid_size[i]);
+    }
+    this->bookUpdated(this->book,symbol);
 
 }
 void Connector::onMessage(const FIX44::MarketDataIncrementalRefresh& message, const FIX::SessionID &)
 {
+    std::string symbol = message.getField(FIX::FIELD::Symbol);
+    last_tradee.px  =  FIX::DoubleConvertor::convert(message.getField(FIX::FIELD::MDEntryPx));
+    last_tradee.qty = FIX::DoubleConvertor::convert(message.getField(FIX::FIELD::MDEntrySize));
+    std::cout << "MarketDataIncrementalRefresh -> Symbol - " << symbol
+              << " Px - " << last_tradee.px << " Qty - " << last_tradee.px << std::endl;
+
+
+    this->last_trade->px = last_tradee.px;
+    this->last_trade->qty = last_tradee.qty;
+    this->tradesUpdated(this->last_trade, symbol);
 }
 
 void Connector::MarketDataRequest(std::string ticker,std::string ID, char subscription)
@@ -107,7 +130,7 @@ void Connector::MarketDataRequest(std::string ticker,std::string ID, char subscr
     std::cout << "\nMarketDataRequest\n";
     FIX::MDReqID mdReqID(ID);
     FIX::SubscriptionRequestType subType( subscription );
-    FIX::MarketDepth marketDepth( 4 );
+    FIX::MarketDepth marketDepth( 0 );
 
     FIX44::MarketDataRequest::NoMDEntryTypes marketDataEntryGroup_bid;
     FIX::MDEntryType mdEntryType_bid( FIX::MDEntryType_BID );
@@ -117,9 +140,9 @@ void Connector::MarketDataRequest(std::string ticker,std::string ID, char subscr
     FIX::MDEntryType mdEntryType_offer( FIX::MDEntryType_OFFER );
     marketDataEntryGroup_ask.set( mdEntryType_offer );
 
-//    FIX44::MarketDataRequest::NoMDEntryTypes marketDataEntryGroup_trade;
-//    FIX::MDEntryType mdEntryType_trade( FIX::MDEntryType_TRADE );
-//    marketDataEntryGroup_trade.set( mdEntryType_trade );
+    FIX44::MarketDataRequest::NoMDEntryTypes marketDataEntryGroup_trade;
+    FIX::MDEntryType mdEntryType_trade( FIX::MDEntryType_TRADE );
+    marketDataEntryGroup_trade.set( mdEntryType_trade );
 
 
     FIX44::MarketDataRequest::NoRelatedSym symbolGroup;
@@ -129,14 +152,14 @@ void Connector::MarketDataRequest(std::string ticker,std::string ID, char subscr
     FIX44::MarketDataRequest message( mdReqID, subType, marketDepth );
     message.addGroup( marketDataEntryGroup_bid );
     message.addGroup( marketDataEntryGroup_ask );
-//    message.addGroup( marketDataEntryGroup_trade );
+    message.addGroup( marketDataEntryGroup_trade );
     message.addGroup( symbolGroup );
 
     message.getHeader().setField(FIX::SenderCompID(std::string("lpwp6653")));
     message.getHeader().setField(FIX::TargetCompID(std::string("BITSTAMP")));
 
-    std::cout << message.toXML() << std::endl;
-    std::cout << message.toString() << std::endl;
+//    std::cout << message.toXML() << std::endl;
+//    std::cout << message.toString() << std::endl;
 
     FIX::Session::sendToTarget(message);
 }

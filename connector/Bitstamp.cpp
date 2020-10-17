@@ -12,24 +12,16 @@ using std::vector;
 #include "Bitstamp.h"
 
 
-void bookUpdated(vector<float> bid_price, vector<float> ask_price, vector<float> bid_size, vector<float> ask_size,
-                 int entries_size,BOOK* Book,std::string ticker) {
-
-    Book->ask_price.clear();
-    Book->bid_price.clear();
-    Book->ask_size.clear();
-    Book->bid_size.clear();
-    for(int i = 0; i < entries_size/2; i++){
-
-        Book->ask_price.push_back(ask_price[i]);
-        Book->bid_price.push_back(bid_price[i]);
-        Book->ask_size.push_back(ask_size[i]);
-        Book->bid_size.push_back(bid_size[i]);
-    }
+void bookUpdated(BOOK* Book,std::string ticker) {
+    std::cout << "TOP OF BOOK FOR " << ticker << ":" << std::endl
+    <<"Ask px: "<< Book->ask_price [0]<< std::endl
+    <<"Bid px: "<< Book->bid_price [0]<< std::endl
+    <<"Ask size: "<< Book->ask_size [0]<< std::endl
+    <<"Bid size: "<< Book->bid_size [0]<< std::endl;
 }
 
-void tradesUpdated(vector<float>,double,BOOK*,std::string) {
-
+void tradesUpdated(LT* last_trade,std::string ticker) {
+    std::cout << "LAST TRADE FOR " << ticker << ": Px: " << last_trade->px << " Qty: " << last_trade->qty << std::endl;
 }
 
 

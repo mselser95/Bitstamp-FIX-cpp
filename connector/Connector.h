@@ -35,6 +35,7 @@
 #include "quickfix/fix44/OrderCancelReplaceRequest.h"
 #include "quickfix/fix44/MarketDataRequestReject.h"
 #include "quickfix/fix44/MarketDataSnapshotFullRefresh.h"
+#include "quickfix/fix44/MarketDataIncrementalRefresh.h"
 #include "quickfix/fix44/MarketDataRequest.h"
 
 #include <queue>
@@ -49,16 +50,17 @@ class Connector :
 {
 public:
     void MarketDataRequest(std::string ticker,std::string ID, char subscription);
-    void (*bookUpdated)(vector<float>,vector<float>,vector<float>,vector<float>,int,BOOK*,std::string);
-    void (*tradesUpdated)(vector<float>,double,BOOK*,std::string);
+    void (*bookUpdated)(BOOK*,std::string);
+    void (*tradesUpdated)(LT*,std::string);
     BOOK* book;
-
-    Connector(void (*bookUpdated)(vector<float>,vector<float>,vector<float>,vector<float>,int,BOOK*,std::string),
-              void (*tradesUpdated)(vector<float>,double,BOOK*,std::string),
-              BOOK * book){
+    LT* last_trade;
+    Connector(void (*bookUpdated)(BOOK*,std::string),
+              void (*tradesUpdated)(LT*,std::string),
+              BOOK * book, LT* last_trade){
         this ->bookUpdated = bookUpdated;
         this ->tradesUpdated = tradesUpdated;
         this ->book = book;
+        this ->last_trade = last_trade;
     }
 
 private:

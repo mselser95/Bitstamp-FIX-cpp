@@ -17,4 +17,10 @@ typedef struct {
     vector<float> ask_size;
 }BOOK;
 
+typedef struct {
+    double px;
+    double qty;
+}LT;
+
+
 #endif //TEST_BOOK_H

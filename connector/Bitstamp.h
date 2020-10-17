@@ -20,8 +20,8 @@
 #include <vector>
 using std::vector;
 
-void bookUpdated(vector<float>,vector<float>,vector<float>,vector<float>,int,BOOK*,std::string);
-void tradesUpdated(vector<float>,double,BOOK*,std::string);
+void bookUpdated(BOOK*,std::string);
+void tradesUpdated(LT*,std::string);
 
 class Bitstamp {
 public:
@@ -31,10 +31,10 @@ public:
     Connector * application = 0;
 
     char connect(void);
-    Bitstamp(BOOK * book){
+    Bitstamp(BOOK * book,LT * last_trade){
         this -> initiator = 0;
         this -> settings = FIX::SessionSettings("config/tradeclient.cfg");
-        this -> application = new(Connector){bookUpdated,tradesUpdated,book};
+        this -> application = new(Connector){bookUpdated,tradesUpdated,book,last_trade};
     }
 
     void get_streaming_data(std::string ticker,std::string ID);
