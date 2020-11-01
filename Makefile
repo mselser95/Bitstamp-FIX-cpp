@@ -68,10 +68,10 @@ RM = /home/matias/Software/clion-2020.2.3/bin/cmake/linux/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/matias/CLionProjects/Brain
+CMAKE_SOURCE_DIR = /home/matias/CLionProjects/Public/Bitstamp-FIX-cpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/matias/CLionProjects/Brain
+CMAKE_BINARY_DIR = /home/matias/CLionProjects/Public/Bitstamp-FIX-cpp
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -100,9 +100,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/matias/CLionProjects/Brain/CMakeFiles /home/matias/CLionProjects/Brain/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matias/CLionProjects/Public/Bitstamp-FIX-cpp/CMakeFiles /home/matias/CLionProjects/Public/Bitstamp-FIX-cpp/CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/matias/CLionProjects/Brain/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matias/CLionProjects/Public/Bitstamp-FIX-cpp/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -197,32 +197,32 @@ connector/Bitstamp.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/connector/Bitstamp.cpp.s
 .PHONY : connector/Bitstamp.cpp.s
 
-connector/Connector.o: connector/Connector.cpp.o
+connector/fix/Connector.o: connector/fix/Connector.cpp.o
 
-.PHONY : connector/Connector.o
+.PHONY : connector/fix/Connector.o
 
 # target to build an object file
-connector/Connector.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/connector/Connector.cpp.o
-.PHONY : connector/Connector.cpp.o
+connector/fix/Connector.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/connector/fix/Connector.cpp.o
+.PHONY : connector/fix/Connector.cpp.o
 
-connector/Connector.i: connector/Connector.cpp.i
+connector/fix/Connector.i: connector/fix/Connector.cpp.i
 
-.PHONY : connector/Connector.i
+.PHONY : connector/fix/Connector.i
 
 # target to preprocess a source file
-connector/Connector.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/connector/Connector.cpp.i
-.PHONY : connector/Connector.cpp.i
+connector/fix/Connector.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/connector/fix/Connector.cpp.i
+.PHONY : connector/fix/Connector.cpp.i
 
-connector/Connector.s: connector/Connector.cpp.s
+connector/fix/Connector.s: connector/fix/Connector.cpp.s
 
-.PHONY : connector/Connector.s
+.PHONY : connector/fix/Connector.s
 
 # target to generate assembly for a file
-connector/Connector.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/connector/Connector.cpp.s
-.PHONY : connector/Connector.cpp.s
+connector/fix/Connector.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/connector/fix/Connector.cpp.s
+.PHONY : connector/fix/Connector.cpp.s
 
 # Help Target
 help:
@@ -239,9 +239,9 @@ help:
 	@echo "... connector/Bitstamp.o"
 	@echo "... connector/Bitstamp.i"
 	@echo "... connector/Bitstamp.s"
-	@echo "... connector/Connector.o"
-	@echo "... connector/Connector.i"
-	@echo "... connector/Connector.s"
+	@echo "... connector/fix/Connector.o"
+	@echo "... connector/fix/Connector.i"
+	@echo "... connector/fix/Connector.s"
 .PHONY : help
 
 

@@ -5,7 +5,7 @@
 #ifndef TEST_BITSTAMP_H
 #define TEST_BITSTAMP_H
 
-#include "Connector.h"
+#include "connector/fix/Connector.h"
 #include "quickfix/Session.h"
 #include <iostream>
 #include "quickfix/FileStore.h"
@@ -45,10 +45,3 @@ public:
 
 
 #endif //TEST_BITSTAMP_H
-
-
-//Bitstamp(void (*bookUpdated)(int),void (*tradesUpdated)(int)){
-//    this -> initiator = 0;
-//    this -> settings = FIX::SessionSettings("config/tradeclient.cfg");
-//    this ->application = new(Connector){bookUpdated,tradesUpdated};
-//}

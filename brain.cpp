@@ -27,6 +27,7 @@ int main( int argc, char** argv )
 //    bitstamp_connector.stop_streaming_data("LTC/USD","3");
 
     bitstamp_connector.send_market_order("BTC/USD","SELL",0.0001);
+    sleep(5);
 
 
 

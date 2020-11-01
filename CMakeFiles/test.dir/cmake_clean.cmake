@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/test.dir/brain.cpp.o"
   "CMakeFiles/test.dir/connector/Bitstamp.cpp.o"
-  "CMakeFiles/test.dir/connector/Connector.cpp.o"
+  "CMakeFiles/test.dir/connector/fix/Connector.cpp.o"
   "test"
   "test.pdb"
 )

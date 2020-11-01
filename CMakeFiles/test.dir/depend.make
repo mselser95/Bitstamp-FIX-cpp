@@ -4,14 +4,14 @@
 CMakeFiles/test.dir/brain.cpp.o: Book.h
 CMakeFiles/test.dir/brain.cpp.o: brain.cpp
 CMakeFiles/test.dir/brain.cpp.o: connector/Bitstamp.h
-CMakeFiles/test.dir/brain.cpp.o: connector/Connector.h
+CMakeFiles/test.dir/brain.cpp.o: connector/fix/Connector.h
 
 CMakeFiles/test.dir/connector/Bitstamp.cpp.o: connector/Bitstamp.cpp
 CMakeFiles/test.dir/connector/Bitstamp.cpp.o: connector/Bitstamp.h
-CMakeFiles/test.dir/connector/Bitstamp.cpp.o: connector/Connector.h
 CMakeFiles/test.dir/connector/Bitstamp.cpp.o: Book.h
+CMakeFiles/test.dir/connector/Bitstamp.cpp.o: connector/fix/Connector.h
 
-CMakeFiles/test.dir/connector/Connector.cpp.o: connector/Connector.cpp
-CMakeFiles/test.dir/connector/Connector.cpp.o: connector/Connector.h
-CMakeFiles/test.dir/connector/Connector.cpp.o: Book.h
+CMakeFiles/test.dir/connector/fix/Connector.cpp.o: connector/fix/Connector.cpp
+CMakeFiles/test.dir/connector/fix/Connector.cpp.o: connector/fix/Connector.h
+CMakeFiles/test.dir/connector/fix/Connector.cpp.o: Book.h
 

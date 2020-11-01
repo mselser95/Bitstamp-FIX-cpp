@@ -1,4 +1,4 @@
-# Install script for directory: /home/matias/CLionProjects/Brain
+# Install script for directory: /home/matias/CLionProjects/Public/Bitstamp-FIX-cpp
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/matias/CLionProjects/Brain/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/matias/CLionProjects/Public/Bitstamp-FIX-cpp/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

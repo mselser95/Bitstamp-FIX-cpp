@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/matias/CLionProjects/Brain/brain.cpp" "/home/matias/CLionProjects/Brain/CMakeFiles/test.dir/brain.cpp.o"
-  "/home/matias/CLionProjects/Brain/connector/Bitstamp.cpp" "/home/matias/CLionProjects/Brain/CMakeFiles/test.dir/connector/Bitstamp.cpp.o"
-  "/home/matias/CLionProjects/Brain/connector/Connector.cpp" "/home/matias/CLionProjects/Brain/CMakeFiles/test.dir/connector/Connector.cpp.o"
+  "/home/matias/CLionProjects/Public/Bitstamp-FIX-cpp/brain.cpp" "/home/matias/CLionProjects/Public/Bitstamp-FIX-cpp/CMakeFiles/test.dir/brain.cpp.o"
+  "/home/matias/CLionProjects/Public/Bitstamp-FIX-cpp/connector/Bitstamp.cpp" "/home/matias/CLionProjects/Public/Bitstamp-FIX-cpp/CMakeFiles/test.dir/connector/Bitstamp.cpp.o"
+  "/home/matias/CLionProjects/Public/Bitstamp-FIX-cpp/connector/fix/Connector.cpp" "/home/matias/CLionProjects/Public/Bitstamp-FIX-cpp/CMakeFiles/test.dir/connector/fix/Connector.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

@@ -6,5 +6,5 @@ CXX_FLAGS = -g   -std=gnu++14
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/matias/CLionProjects/Brain/. 
+CXX_INCLUDES = -I/home/matias/CLionProjects/Public/Bitstamp-FIX-cpp/. 
 
